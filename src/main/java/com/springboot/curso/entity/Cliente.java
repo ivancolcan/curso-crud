@@ -8,62 +8,73 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.lang.NonNull;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NonNull
+
+	@NotNull
 	@Column(length = 50)
 	private String nombre;
-	
+
 	@Column(length = 150)
 	private String apellidos;
-	
-	@NonNull
+
+	@NotNull
 	@Column(length = 50, unique = true)
 	private String email;
-	
+
 	@Column(length = 9)
 	private String telefono;
+
+	@Column(length = 150)
+	private String imagen;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_region")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Region region;
+
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
-	//@CreatedDate
-	//@DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss")
-	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	// @CreatedDate
+	// @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	// @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createAt;
-	
+
 	@PrePersist
-    public void onPrePersist() {
+	public void onPrePersist() {
 		createAt = new Date();
-        //audit("INSERT");
-    }
-     
-    @PreUpdate
-    public void onPreUpdate() {
-        //audit("UPDATE");
-    }
-     
-    @PreRemove
-    public void onPreRemove() {
-        //audit("DELETE");
-    }
-	
+		// audit("INSERT");
+	}
+
+	@PreUpdate
+	public void onPreUpdate() {
+		// audit("UPDATE");
+	}
+
+	@PreRemove
+	public void onPreRemove() {
+		// audit("DELETE");
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -102,6 +113,14 @@ public class Cliente implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public Date getCreateAt() {
