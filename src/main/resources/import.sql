@@ -1,3 +1,17 @@
+/* Creamos algunos roles */
+INSERT INTO roles (nombre) VALUES ('ROLE_ADMIN');
+INSERT INTO roles (nombre) VALUES ('ROLE_USER');
+INSERT INTO roles (nombre) VALUES ('ROLE_CLIENT');
+
+/* Creamos algunos usuarios */
+INSERT INTO usuarios (username, nombre, apellidos, password, enabled, created, last_modified) VALUES ('ivan', 'Iván', 'Domínguez Villacreces', '$2a$10$O9wxmH/AeyZZzIS09Wp8YOEMvFnbRVJ8B4dmAMVSGloR62lj.yqXG', 1, NOW(), NOW());
+INSERT INTO usuarios (username, nombre, apellidos, password, enabled, created, last_modified) VALUES ('sonia', 'Sonia', 'Domínguez Trapero', '$2a$10$O9wxmH/AeyZZzIS09Wp8YOEMvFnbRVJ8B4dmAMVSGloR62lj.yqXG', 1, NOW(), NOW());
+
+/* Asiganmos algunos roels a los usuarios */
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (1, 1);
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2, 2);
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2, 3);
+
 /* Creamos algunas regiones */
 INSERT INTO region (nombre, create_at) VALUES ('Ciudad Real', NOW());
 INSERT INTO region (nombre, create_at) VALUES ('Miguelturra', NOW());
